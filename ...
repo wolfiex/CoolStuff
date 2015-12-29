@@ -1,0 +1,5 @@
+#! /bin/bash
+cd ../../
+# go back two sets of directorys by using '. ...'
+# . executes shell script in current profile (not a subshell!). '...' is the name of this script.
+# Dan Ellis
