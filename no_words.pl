@@ -18,7 +18,7 @@ while (<FILE>){
      
 printf $line, '\n';
 
-my $count = 0;
+my $count = 0;n
 for (sort {
      #sort by most occured    
     $seen{$b} <=> $seen{$a}
