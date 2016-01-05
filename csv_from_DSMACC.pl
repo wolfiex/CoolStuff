@@ -4,7 +4,8 @@ use warnings;
 
 ## Parses the Spec and rate files from the DSMACC model into csv-style files that can be read into pandas with read_csv. 
 # chmod a+x the file, then run with files as arguments  
-# creates .ropa file with same filename 
+# can use multiple files:      ./csv_toDSMACC.pl *.dat
+# creates        .ropa       file with inital filename 
 ####################### Dan Ellis ####################
 
 
