@@ -19,17 +19,19 @@ for my $arg (@ARGV) {
     @new = split(/\./,$arg);
     open(my $write, ">", $new[0].".ropa") or die "$!";
 
-
+    
     while( <$fh> ) {
+        
         s/\!/,/g;
         s/\s+//g;
         chop($_); #rm last 
 
+        #print $_;
         if ($. > 1) { 
-             if($_ !~ m/(\d.\d{16}E[+-]\d{3}\,{0,1}){$len}/g){
+             if($_ !~ m/(\d\.\d{16}E[+-]\d{2,3}\,{0,1}){$len}/g){
                 for $individual (split(/,/,$_)){ 
 
-                    if ($individual !~ m/\d.\d{16}E[+-]\d{3}\,{0,1}/){
+                    if ($individual !~ m/\d.\d{16}E[+-]\d{2,3}\,{0,1}/){
                         
                         if ($individual !~ m/E/ ) { 
                         
