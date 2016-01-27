@@ -1,0 +1,5 @@
+#! /bin/bash
+
+ls -lth --time-style=+%Y-%m-%d--%H:%M
+
+

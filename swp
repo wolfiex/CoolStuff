@@ -1,0 +1,5 @@
+## removes those pesky swap files vim leaves when force closed
+## Dan Ellis 
+
+rm .*.swp
+

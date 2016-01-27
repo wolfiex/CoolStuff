@@ -1,0 +1,12 @@
+!# bin/bash
+
+## Script to make grep easier to use. 
+## Searches all files in directory
+## Adds line numbers
+
+# Dan Ellis 2016
+
+/usr/bin/grep -n $@ * 
+
+
+
