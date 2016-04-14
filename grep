@@ -1,4 +1,4 @@
-!# bin/bash
+#! /bin/bash
 
 ## Script to make grep easier to use. 
 ## Searches all files in directory

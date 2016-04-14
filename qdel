@@ -12,7 +12,7 @@ use Term::ANSIColor;
 
 #########################
 ## Enter username here ##
-my $line=`./opt/pbs/default/bin/qstat -u dp626`;
+my $line=`/opt/pbs/default/bin/qstat -u dp626`;
 #########################
 
 my @output = split("\n",$line) ;
@@ -48,7 +48,7 @@ if ($input eq "A\n") {
         #do for all jobs. 
         for my $j (4 .. $#output){
             $output[$j] =~ s/(\d*).*/$1/  ;
-            system("./opt/pbs/default/bin/qdel $output[$j]") ; 
+            system("/opt/pbs/default/bin/qdel $output[$j]") ; 
                
         }   
 
@@ -70,7 +70,7 @@ if ($input eq "A\n") {
        print $randm."\n";
         
        $output[$input] =~ s/(\d*).*/$1/  ;
-       system("./opt/pbs/default/bin/qdel $output[$input]") ;
+       system("/opt/pbs/default/bin/qdel $output[$input]") ;
 
 
 }else{ #picks up pieces for incorrect entries

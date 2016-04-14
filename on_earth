@@ -1,0 +1,62 @@
+#! /usr/bin/perl
+############################################################################################################################
+# Checks if running interactively & lanches screen if so. see bashrc!
+# chmod a+x filename and run normally (./file) or use 'perl filename'
+#Author:  D.Ellis   Date:  #Jan 2016
+############################################################################################################################
+
+use 5.10.0;
+use strict;
+use Term::ANSIColor;
+
+
+#########################
+## Enter username here ##
+my $line=`/opt/pbs/default/bin/qstat -u dp626`;
+#########################
+
+my @output = split("\n",$line) ;
+my $randm;
+#entry write to screen
+print color("red"), color("reset");
+
+#read all current jobs and parse
+for my $i (0 .. $#output){
+    if ($i > 4) { #skip detail lines
+      print "# " . color("green"), sprintf("%02d",$i-4) , color("reset"), "    $output[$i] \n" ;
+    } else { 
+        print color("red"), $output[$i]."\n", color("reset");
+    }
+}
+
+
+
+for my $j (4 .. $#output){
+     
+     if ($output[$j] =~ /STDIN/) { 
+        $output[$j] =~ s/(\d*).*/$1/  ;
+        #print $output[$j] ;
+        my $test= $output[$j];
+        print "crash"; 
+        system("qsig $test 2>&1 1>/dev/null");
+        print "bd";
+        #print $a.$output[$j]; 
+        `qsig $output[$j]`;
+        
+      
+        
+        
+        if ( `qsig $output[$j]` =~ /dTerminated/ ){   
+
+            exec(top);#dont return to calling perl script. 
+        }
+    }   
+}
+
+        
+    #   die "$randm \n"; #kills program
+
+        
+        
+        
+        
