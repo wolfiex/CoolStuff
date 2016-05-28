@@ -54,7 +54,7 @@ def get_dependancies(html):
                 
                 try:
                     html2 = get_url(newurl+'/'+k)
-                    if k[-5:]--'.html': get_dependancies(html2) #call fn recursively
+                    if k[-5:]=='.html': get_dependancies(html2) #call fn recursively
                     break
                 except:None
                 
