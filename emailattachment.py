@@ -27,7 +27,7 @@ def send(to , subject , text , gmail_user="dp626@york.ac.uk" , attach = sys.argv
 
         msg.attach(MIMEText(text))
 
-        for f in sys.argv[1:]:
+        for f in attach:
             with open(f, "rb") as fil:
                     msg.attach(MIMEApplication(
                         fil.read(),
