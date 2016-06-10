@@ -80,18 +80,18 @@ ___
 - rename batch of files `rename's/txt_match/txt_new/' *.txt`
 - recursive copy `cd -r` 
 - force delete (use with caution) `rm -rf`
-- top (once inside) k  , h , z, i 
-- pkill `<process name>`
-- xkill (click on window)
+- `top` (once inside) k , h , z, i , u 
+- `pkill <process name>`
+- `xkill` (click on window)
 
 #### Q-Sub 
 ___
 
 - interactive `-I`
 - memory `-l mem=<number><unit: Mb/Gb/kB>`
-- qstat -u <username>
-- qdel -u <username> (version dependant)
-- qsub -q 
+- `qstat -u <username>`
+- `qdel -u <username>` (version dependant)
+- `qsub -q`
 
 
 
