@@ -21,7 +21,7 @@ ___
 - end of line `^E`
 - start of line `^A`
 - cut after cursor `^K`
-- reverse search `<fragment to match> ^R`
+- reverse search `^R`
 - undo `^_`
 - last bash cmd:  `esc + . /  alt + - / !!:*`
 
