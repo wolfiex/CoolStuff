@@ -83,6 +83,7 @@ ___
 - `top` (once inside) k , h , z, i , u 
 - `pkill <process name>`
 - `xkill` (click on window)
+- modified `ls -lth --time-style=+%Y-%m-%d--%H:%M`
 
 #### Q-Sub 
 ___
