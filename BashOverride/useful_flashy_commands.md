@@ -55,7 +55,7 @@ ___
 -autocomplete cacse `set completion-ignore-case on`
 ########history:
 - ignore duplicates `export HISTCONTROL='erasedups:ignoreboth'`
-- ignore history entries `export HISTIGNORE='&:[]*:<cmd eg exit>`
+- ignore history entries `export HISTIGNORE='&:[]*:<cmd eg exit>'`
 - write history upon exit `shopt -s histappend`
 
 
@@ -93,6 +93,41 @@ ___
 - `qstat -u <username>`
 - `qdel -u <username>` (version dependant)
 - `qsub -q`
+
+
+#### Screen GNU - the terminal multiplexer
+___
+See .screenrc
+
+- new session `screen -S <sessionname>`
+- list all `screen -ls`
+- resume running session `screen -rd <sessionname>`
+
+using `^A + `
+
+- kill screen `:quit`
+- remove all splits `Q`
+- kill current `k`
+- `:resize -v 50% -h 10 lines`
+- del split `:remove`
+- new screen `c`
+- view all `w` 
+- rename window `A`
+- next window `n`
+- previous winddow `p`
+- select from list ` " `
+- "previous window viewed `^A`
+- fit to new terminal size `:fit`
+- move to next regioun `<tab>`
+- detach screen from terminal `d`
+- copy mode (enables scrolling) `[`
+- paste `]`
+- `:split -v (vertical) -h (horizontal)`
+- kill all `\`
+- lock session `x`
+- show key bindings/cmd names `?`
+- screen cmd prompt `:`
+
 
 
 
