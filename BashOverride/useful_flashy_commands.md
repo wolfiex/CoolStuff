@@ -103,26 +103,29 @@ See .screenrc
 - list all `screen -ls`
 - resume running session `screen -rd <sessionname>`
 
-using `^A + `
+For the next section use  `^A + <keystrokes stated> `
 
-- kill screen `:quit`
-- remove all splits `Q`
-- kill current `k`
+- new screen `c`
+- fit to new terminal size `:fit`
+- detach screen from terminal `d`
+- `:split -v (vertical) -h (horizontal)`
 - `:resize -v 50% -h 10 lines`
 - del split `:remove`
-- new screen `c`
-- view all `w` 
+- remove all splits `Q`
+
 - rename window `A`
+- view all `w` 
 - next window `n`
 - previous winddow `p`
 - select from list ` " `
 - "previous window viewed `^A`
-- fit to new terminal size `:fit`
 - move to next regioun `<tab>`
-- detach screen from terminal `d`
+
 - copy mode (enables scrolling) `[`
 - paste `]`
-- `:split -v (vertical) -h (horizontal)`
+
+- kill screen `:quit`
+- kill current `k`
 - kill all `\`
 - lock session `x`
 - show key bindings/cmd names `?`
