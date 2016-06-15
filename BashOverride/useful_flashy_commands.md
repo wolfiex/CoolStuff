@@ -112,8 +112,7 @@ For the next section use  `^A + <keystrokes stated> `
 - `:resize -v 50% -h 10 lines`
 - del split `:remove`
 - remove all splits `Q`
-
-
+.
 - rename window `A`
 - view all `w` 
 - next window `n`
@@ -121,12 +120,10 @@ For the next section use  `^A + <keystrokes stated> `
 - select from list ` " `
 - "previous window viewed `^A`
 - move to next regioun `<tab>`
-
-
+.
 - copy mode (enables scrolling) `[`
 - paste `]`
-
-
+. 
 - kill screen `:quit`
 - kill current `k`
 - kill all `\`
