@@ -114,7 +114,6 @@ For the next section use  `^A + <keystrokes stated> `
 - remove all splits `Q`
 
 .
-
 - rename window `A`
 - view all `w` 
 - next window `n`
@@ -124,12 +123,10 @@ For the next section use  `^A + <keystrokes stated> `
 - move to next regioun `<tab>`
 
 .
-
 - copy mode (enables scrolling) `[`
 - paste `]`
 
 . 
-
 - kill screen `:quit`
 - kill current `k`
 - kill all `\`
