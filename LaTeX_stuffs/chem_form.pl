@@ -2,7 +2,6 @@
 use strict;
 use warnings;
 
-
 #############################################
 # A program to replace common matches of words in the list and replaces them with their counterparts
 # It also corrects any chemical formulae into the corresponding capitalised and subscripted froms
@@ -15,11 +14,8 @@ my @replace_l   = ( '$CO$', '$NO$', '$OH$', 'MCM', 'NO_{x}',   );
 
 
 
-
-
 local $^I   = '.bak';              # emulate  -i.orig  # makes a backup
 local @ARGV = glob("*.tex");       # read all tex files
-
 
 foreach(@ARGV){
     #get file content
@@ -54,7 +50,6 @@ foreach(@ARGV){
     $content = join('$',@body) 
     
     
-    
     for(my$i = 0; $i<=$#find_list; $i++){
     
     my $find = $find_list[$i];
@@ -69,11 +64,9 @@ foreach(@ARGV){
 
     open my $file, '>', $_ or die '$!'; print $file $content; close $file;
       
-      
     }
 
 
 
-#while (<>) {} continue {close ARGV if eof} 
 
-    
+#while (<>) {} continue {close ARGV if eof} 
