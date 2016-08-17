@@ -1,0 +1,8 @@
+#! /bin/bash
+## A simple script to add semi-colons to the end of perl scripts before running them... 
+# Dan Ellis 2016
+
+
+/usr/bin/perl -p -i -e 's/(.*[\w\]\[\(\)])(\s*\n)/$1;\n/g' $@
+
+/usr/bin/perl $@
