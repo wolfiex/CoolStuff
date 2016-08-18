@@ -14,22 +14,19 @@ my @replace_l   = ( '$CO$', '$NO$', '$OH$', 'MCM', '$NO_{\times}$',  );
 
 my @ignore_list = ( 'YO10', '5DD',  );
 
-
-
-
-
 local $^I   = '.bak';              # emulate  -i.orig  # makes a backup
 local @ARGV = glob("*.tex");       # read all tex files
 
-sub parse_chem { 
-    # parsing function
+
+sub parse_chem {
+    #my $_ = @_;
     s/(\w+)/\$\U${1}\$/;   
     s/([A-Z])(\d+)/${1}_\{${2}\}/ig;
     return;};
 
 
 
-# loop through each file
+
 foreach(@ARGV){
     #get file content
     my $content; {local $/=undef;  open FILE, $_ or die "Couldn't open file: $!"; $content = <FILE>;  close FILE;};

@@ -9,17 +9,33 @@ use warnings;
 #############################################
 
 #note case insensetive.
-my @find_list   = ( 'co'  , 'no'  , 'oh'  , 'mcm',   'nox'   , '\$YO\_\{10\}\$', '\$5DD\$',   );
-my @replace_l   = ( '$CO$', '$NO$', '$OH$', 'MCM', '$NO_{\times}$',  'YO10'         , '5DD'    ,   );
+my @find_list   = ( 'co'  , 'no'  , 'oh'  , 'mcm',   'nox'   ,    );
+my @replace_l   = ( '$CO$', '$NO$', '$OH$', 'MCM', '$NO_{\times}$',  );
+
+my @ignore_list = ( 'YO10', '5DD',  );
+
+
 
 
 
 local $^I   = '.bak';              # emulate  -i.orig  # makes a backup
 local @ARGV = glob("*.tex");       # read all tex files
 
+sub parse_chem { 
+    # parsing function
+    s/(\w+)/\$\U${1}\$/;   
+    s/([A-Z])(\d+)/${1}_\{${2}\}/ig;
+    return;};
+
+
+
+# loop through each file
 foreach(@ARGV){
     #get file content
     my $content; {local $/=undef;  open FILE, $_ or die "Couldn't open file: $!"; $content = <FILE>;  close FILE;};
+    #backup copy
+    open my $backup, '>', ($_.'.backup') or die '$!'; print $backup $content; close $backup;
+    
     $content =~ s/\h*\n\h*/ \n /gi;
     $content =~ s/,/ , /gi;
     #split into math and non math mode sections
@@ -33,15 +49,14 @@ foreach(@ARGV){
             my @words = split(/\h+/,$_);    
             foreach(@words){
 
-                if (m/http.*/ || m/www/) {  
+                if (m/http.*/ || m/www/ && !/.*\url.*/ ) {  
                     #hyperlink formatting
-                    s/\b(.*)\b/ \{\\scriptsize \\textit\{\(\\url\{${1}\}\)\}\}/g;
+                    s/\b(.*)\h*\b/\{\\scriptsize\\textit\{\(\\url\{${1}\}\)\}\} /g;
                 
                 # is alphanumeric with no punctuation and measurement units
                 }elsif ( /\d+/ && /\w+/ && !/.*[[:punct:]].*/ && !/\w*[mc]m/i && !/.*in/i  ) {  # if has digit, capitalise and enter mathmode
                     #print "\n+++",$_ , '---';
-                    s/(\w+)/\$\U${1}\$/;   
-                    s/([A-Z])(\d+)/${1}_\{${2}\}/ig;
+                    &parse_chem();
                 };
           
             };
@@ -55,13 +70,19 @@ foreach(@ARGV){
     $content = join('$',@body) ;
     
 
+    foreach (@ignore_list){ 
+        my $retained = $_;
+        &parse_chem();
+        s/([\\\/\^\.\$\|\(\)\[\]\{\}\_\-])/\\${1}/g;
+        $content =~ s/$_/$retained/ig ;
+    }
+
     
     for(my $i = 0; $i<$#find_list +1 ; $i++){
         
         my $find = $find_list[$i];
         my $replace = $replace_l[$i];
         
-        print $find ;    
         #post-process specific words
         $content =~ s/(\s)$find(\s)/${1}$replace${2}/ig ;
         
