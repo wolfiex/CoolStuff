@@ -1,4 +1,4 @@
-#!/usr/local/bin/perl
+#!/usr/bin/perl
 use strict;
 use warnings;
 
@@ -9,8 +9,8 @@ use warnings;
 #############################################
 
 #note case insensetive.
-my @find_list   = ( 'co'  , 'no'  , 'oh'  , 'mcm', 'nox'   ,   );
-my @replace_l   = ( '$CO$', '$NO$', '$OH$', 'MCM', 'NO_{x}',   );
+my @find_list   = ( 'co'  , 'no'  , 'oh'  , 'mcm',   'nox'   , '\$YO\_\{10\}\$', '\$5DD\$',   );
+my @replace_l   = ( '$CO$', '$NO$', '$OH$', 'MCM', '$NO_{\times}$',  'YO10'         , '5DD'    ,   );
 
 
 
@@ -20,6 +20,8 @@ local @ARGV = glob("*.tex");       # read all tex files
 foreach(@ARGV){
     #get file content
     my $content; {local $/=undef;  open FILE, $_ or die "Couldn't open file: $!"; $content = <FILE>;  close FILE;};
+    $content =~ s/\h*\n\h*/ \n /gi;
+    $content =~ s/,/ , /gi;
     #split into math and non math mode sections
     my @body = split(/\$/,$content); 
      
@@ -30,13 +32,16 @@ foreach(@ARGV){
             #split into words  
             my @words = split(/\h+/,$_);    
             foreach(@words){
+
+                if (m/http.*/ || m/www/) {  
+                    #hyperlink formatting
+                    s/\b(.*)\b/ \{\\scriptsize \\textit\{\(\\url\{${1}\}\)\}\}/g;
                 
-                if (m/\d/ ) {  # if has digit, capitalise and enter mathmode
-                
-                s/([0-9a-zA-Z]+)/\$\U${1}\$ /g;    
-                s/(.*)(\$\s+)(.*)/${1}\$${3}/g;
-                s/([A-Z])(\d+)/${1}_\{${2}\}/g;
-                
+                # is alphanumeric with no punctuation and measurement units
+                }elsif ( /\d+/ && /\w+/ && !/.*[[:punct:]].*/ && !/\w*[mc]m/i && !/.*in/i  ) {  # if has digit, capitalise and enter mathmode
+                    #print "\n+++",$_ , '---';
+                    s/(\w+)/\$\U${1}\$/;   
+                    s/([A-Z])(\d+)/${1}_\{${2}\}/ig;
                 };
           
             };
@@ -47,26 +52,33 @@ foreach(@ARGV){
      } 
 
       
-    $content = join('$',@body) 
+    $content = join('$',@body) ;
     
+
     
-    for(my$i = 0; $i<=$#find_list; $i++){
-    
-    my $find = $find_list[$i];
-    my $replace = $replace_l[$i];
-    
-    #post-process specific words
-    $content =~ s/\b$find\b/$replace/gi 
-    
+    for(my $i = 0; $i<$#find_list +1 ; $i++){
+        
+        my $find = $find_list[$i];
+        my $replace = $replace_l[$i];
+        
+        print $find ;    
+        #post-process specific words
+        $content =~ s/(\s)$find(\s)/${1}$replace${2}/ig ;
+        
     }
-    
-    print 'overwriting',$_,'\n';
+
+    #print $content;
+    $content =~ s/\h+,\h+/, /gi;    #fix commas
+    print 'overwriting',$_,"\n";
 
     open my $file, '>', $_ or die '$!'; print $file $content; close $file;
       
     }
 
 
+
+
+    
 
 
 #while (<>) {} continue {close ARGV if eof} 
