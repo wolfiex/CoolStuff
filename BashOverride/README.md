@@ -84,6 +84,7 @@ ___
 - `pkill <process name>`
 - `xkill` (click on window)
 - modified `ls -lth --time-style=+%Y-%m-%d--%H:%M`
+- number of lines in file `wc -l <filename>`
 
 #### Q-Sub 
 ___
