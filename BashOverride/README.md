@@ -85,6 +85,9 @@ ___
 - `xkill` (click on window)
 - modified `ls -lth --time-style=+%Y-%m-%d--%H:%M`
 - number of lines in file `wc -l <filename>`
+- get all files from url `wget -r -nH --cut-dirs=7 --reject="index.html*"  http://www-users.york.ac.uk/~dp626/force/ics`
+
+
 
 #### Q-Sub 
 ___
