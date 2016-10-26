@@ -87,7 +87,7 @@ ___
 - number of lines in file `wc -l <filename>`
 - get all files from url `wget -r -nH --cut-dirs=7 --reject="index.html*"  http://www-users.york.ac.uk/~dp626/force/ics`
 -delete all files NOT ending with .json `find . -type f ! -name "*.json" -delete`
-
+- list files in repositories recursively `ls -r *`
 
 #### Q-Sub 
 ___
