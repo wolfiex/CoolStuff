@@ -16,7 +16,7 @@ from email.mime.application import MIMEApplication
 from os.path import basename
 
 
-def send(to , subject , text , gmail_user="dp626@york.ac.uk" , attach = sys.argv[1:]):
+def send(to , subject , text , gmail_user="daniel.ellis@york.ac.uk" , attach = sys.argv[1:]):
         #your username is gmail_user
 
         msg = MIMEMultipart()
