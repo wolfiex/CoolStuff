@@ -30,8 +30,8 @@ ___
 
 - repeat last `!!`
 - replace word in last cmd `^<mispelt word eg filname>^<correct word eg filename>
-- filename at beggining `</var/log.txt grep 'error'`
-
+- filename at beggining `</var/log.txt grep 'error'>`
+- change filename for batch using regex `for file in <*.png file-match>; do mv "$file" "${file/<regex_match>/<regex_replace>}"; done`
 
 
 
