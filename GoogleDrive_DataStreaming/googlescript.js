@@ -24,7 +24,7 @@ function importData() {
     //var newsheet = ss.insertSheet('NEWDATA'); // create a 'NEWDATA' sheet to store imported data
     var newsheet = ss.getSheetByName('NEWDATA');
     // loop through csv data array and insert (append) as rows into 'NEWDATA' sheet
-    for ( var i=0, lenCsv=csvData.length; i<lenCsv; i++ ) {
+    for ( var i=newsheet.getLastRow()+1, lenCsv=csvData.length; i<lenCsv; i++ ) {
       newsheet.getRange(i+1, 1, 1, csvData[i].length).setValues(new Array(csvData[i]));
     }
       }
