@@ -1,6 +1,5 @@
 //Tools => script editor on the taskbar from the google sheet you want to use 
 
-
 function importData() {
   var fi = DriveApp.getFilesByName(
   
@@ -13,9 +12,6 @@ function importData() {
   
   ); 
   
-  
-  
-  
   if ( fi.hasNext() ) { // proceed if "report.csv" file exists in the reports folder
     var file = fi.next();
     var csv = file.getBlob().getDataAsString();
@@ -24,7 +20,7 @@ function importData() {
     //var newsheet = ss.insertSheet('NEWDATA'); // create a 'NEWDATA' sheet to store imported data
     var newsheet = ss.getSheetByName('NEWDATA');
     // loop through csv data array and insert (append) as rows into 'NEWDATA' sheet
-    for ( var i=newsheet.getLastRow()+1, lenCsv=csvData.length; i<lenCsv; i++ ) {
+    for ( var i=newsheet.getLastRow(), lenCsv=csvData.length; i<lenCsv; i++ ) {
       newsheet.getRange(i+1, 1, 1, csvData[i].length).setValues(new Array(csvData[i]));
     }
       }
