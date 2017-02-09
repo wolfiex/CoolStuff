@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<!-- adapted from mbostock v4 area brush http://bl.ocks.org/mbostock/34f08d5e11952a80609169b7917d4172-->
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css?family=Economica|Open+Sans" rel="stylesheet">
+<style>
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+svg,body,.text{
+font-family: 'Open Sans', sans-serif;
+}
+
+.area {
+  fill: steelblue;
+  clip-path: url(#clip);
+}
+
+.link {
+    color: steelblue;
+}
+
+.link:hover {
+    color: green;
+}
+
+</style>
+
+<div style='position:relative;'>
+    <div style='float:left;width:80%;position:absolute'>
+        <form action="">
+        Autoupdate:<input id='checkbox' type="checkbox" checked='false' onchange="(this.checked)? autoupdate() : window.checked=false"> 
+        </form>
+        <p style='font-size:8px;float:left;margin:0'>made by D.Ellis</p>
+    </div>
+
+
+    <div style='float:left;width:20%'>
+    <img src="wacl_logo.png" alt="Made by D.Ellis" style="width:20%;position:absolute;float:right;margin:0 80% ;text-align:right;clear:both;">
+    <br>
+
+    </div>
+
+
+    
+</div>
+
+
+
+
+<body onload='autoupdate()'>
+
+
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script>
+
+window.checked=true;
+var width = window.innerWidth,
+    height = window.innerHeight*0.9;
+    
+var margin = {top: 0.02*height, right: 0.02*width, bottom: 0.2*height, left:0.04*width },
+    margin2 = {top: 0.86*height, right: 0.02*width, bottom: 0.05*height, left: 0.04*width},
+    width = window.innerWidth - margin.left - margin.right,
+    height = window.innerHeight*0.9 - margin.top - margin.bottom,
+    height2 = window.innerHeight*0.9 - margin2.top - margin2.bottom;
+
+
+
+
+var x = d3.scaleTime().range([0, width]),
+    x2 = d3.scaleTime().range([0, width]),
+    y = d3.scaleLinear().range([height, 0]),
+    y2 = d3.scaleLinear().range([height2, 0]);
+
+var xAxis = d3.axisBottom(x),
+    xAxis2 = d3.axisBottom(x2),
+    yAxis = d3.axisLeft(y);
+
+
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom);
+
+svg.append("defs").append("clipPath")
+    .attr("id", "clip")
+  .append("rect")
+    .style("position", 'absolute')
+    .attr("width", width)
+    .attr("height", height);
+
+var focus;
+window.graph=[];
+window.counter=6 ;
+//make time =7 
+
+
+      
+svg.append("text")             
+      .attr("transform",
+            "translate(" + ((width + margin.right + margin.left)/2) + " ," + 
+                           (height + margin.top + margin.bottom) + ")")
+      .attr('class','.text')
+      .style("text-anchor", "middle")
+      .text("Time");
+      
+      
+    
+
+//Append a defs (for definition) element to your SVG
+var defs = svg.append("defs");
+
+//Append a linearGradient element to the defs and give it a unique id
+var linearGradient = defs.append("linearGradient")
+    .attr("id", "lg");
+
+
+var colorScale = d3.scaleLinear()
+    .range(["#2c7bb6", "#00a6ca","#00ccbc","#90eb9d","#ffff8c","#f9d057","#f29e2e","#e76818","#d7191c"]);
+
+
+linearGradient
+    .attr("x1", "0%")
+    .attr("y1", "100%")
+    .attr("x2", "0%")
+    .attr("y2", "0%");
+
+
+
+//Append multiple color stops by using D3's data/enter step
+linearGradient.selectAll("stop") 
+    .data( colorScale.range() )                  
+    .enter().append("stop")
+    .attr("offset", function(d,i) { return i/(colorScale.range().length-1); })
+    .attr("stop-color", function(d) { return d; });
+
+
+
+
+
+var valueline = d3.line()
+    .curve(d3.curveMonotoneX) ///remove this line for full plot or use curveLinear
+    .x(function(d) { return x(d[0]); })
+    .y(function(d) { return y(d[1]) });
+
+var valueline2 = d3.line()
+    .curve(d3.curveMonotoneX) ///remove this line for full plot or use curveLinear
+    .x(function(d) { return x2(d[0]); })
+    .y(function(d) { return y2(d[1]) });
+
+
+var zoom = d3.zoom()
+    .scaleExtent([1, Infinity])
+    .translateExtent([[0, 0], [width, height]])
+    .extent([[0, 0], [width, height]])
+    .on("zoom", zoomed);
+
+
+    var brush = d3.brushX()
+        .extent([[0, 0], [width, height2]])
+        .on("brush", brushed);
+
+
+
+function plot(data){
+   data.map(newdata);
+   window.test=data
+   
+   
+  svg.selectAll('g').remove();
+  svg.selectAll('path').remove();
+  
+  
+ focus = svg.append("g")
+    .attr("class", "focus")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+var context = svg.append("g")
+    .attr("class", "context")
+    .attr("transform", "translate(" + margin2.left + "," + (margin2.top) + ")");
+
+
+          
+  
+  
+  
+// Scale the range of the data
+  x.domain([x_date(0,0),x_date(0,window.counter+data.length)]);
+  y.domain([ d3.min(window.graph, function(d) { return d[1]; }), d3.max(window.graph, function(d) { return d[1]; })]);
+
+  x2.domain(x.domain());
+  y2.domain(y.domain());
+
+// append scatter plot to main chart area 
+ /*var dots = focus.append("g");
+    dots.attr("clip-path", "url(#clip)");
+    dots.selectAll("dot")
+        .data([window.graph])
+        .enter().append("circle")
+        .attr('class', 'dot')
+        .attr("r",5)
+        .style("opacity", .5)
+        .attr("cx", function(d) { return x(d[0]); })
+        .attr("cy", function(d) { return y(d[1]); })
+        
+  */      
+   // add the valueline path.
+  focus.append("path")
+      .data([window.graph])
+      .style('stroke',"url(#lg)")
+      .style('stroke-width',3)
+      .style('fill',"transparent")
+      .attr("class", "area")
+      .attr("d", valueline);
+       
+        
+        
+        
+        
+focus.append("g")
+      .attr("class", "axis axis--x")
+       .style('stroke-width',2)
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+focus.append("g")
+      .attr("class", "axis axis--y")
+       .style('stroke-width',2)
+      .call(yAxis);
+      
+focus.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0 - margin.left)
+      .attr("x",0 - (height / 2))
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .attr('class','.text')
+      .attr('font-size','100%')
+      .text("CO2 (ppm)");  
+
+    
+    
+    
+    
+      
+/*      
+// append scatter plot to brush chart area      
+ var dots = context.append("g");
+     dots.attr("clip-path", "url(#clip)");
+     dots.selectAll("dot")
+        .data([window.graph])
+        .enter().append("circle")
+        .attr('class', 'dotContext')
+        .attr("r",3)
+        .style("opacity", .5)
+        .attr("cx", function(d) { return x2(d[0]); })
+        .attr("cy", function(d) { return y2(d[0]); })
+        */
+        
+        
+    var dummy = [[x2.domain()[0],y2.domain()[0]]];
+    window.graph.forEach(d=>dummy.push(d));    
+    dummy.push([x2.domain()[1],y2.domain()[0]]);
+        
+    context.append("path")
+      //.attr("path", "url(#clip)")
+      //.selectAll("dot")
+      .data([dummy])
+      .style('stroke',"url(#lg)")
+      //.style('fill',"url(#lg)")
+       .style("opacity", .5)
+      .attr("class", "area")
+      .attr("d", valueline2);
+       
+        
+        
+        
+context.append("g")
+      .attr("class", "axis axis--x")
+       .style('stroke-width',2)
+      .attr("transform", "translate(0," + height2 +500 + ")")
+      .call(xAxis2);
+
+context.append("g")
+      .attr("class", "brush")
+      .call(brush)
+      .call(brush.move, x.range());
+      
+
+
+
+          //create brush function redraw scatterplot with selection
+ 
+
+
+};
+
+
+function zoomed() {
+  if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return; // ignore zoom-by-brush
+  var t = d3.event.transform;
+  x.domain(t.rescaleX(x2).domain());
+  focus.select(".area").attr("d", valueline);
+  focus.select(".axis--x").call(xAxis);
+  context.select(".brush").call(brush.move, x.range().map(t.invertX, t));
+
+}
+
+
+   function brushed() {
+      if (d3.event.sourceEvent && d3.event.sourceEvent.type === "zoom") return; // ignore brush-by-zoom
+      var s = d3.event.selection || x2.range();
+      x.domain(s.map(x2.invert, x2));
+      focus.select(".area").attr("d", valueline);
+      focus.select(".axis--x").call(xAxis);
+      svg.select(".zoom").call(zoom.transform, d3.zoomIdentity
+          .scale(width / (s[1] - s[0]))
+          .translate(-s[0], 0));
+          
+          
+    }
+
+//////
+
+function newdata(d){ 
+    window.counter += 1;
+    window.graph.push([x_date(0,window.counter),parseFloat(d)])
+    }
+
+
+
+
+
+function x_date(start,timestep){
+    return new Date(window.meta.getTime()+ timestep*1000)
+    //return timestep
+}
+
+/////////////////////////////////////////
+
+function sheetLoaded(data) {
+ // do something with spreadsheet data here
+ window.d = data
+ plot(data.feed.entry.map(d=>d.gs$cell.$t));
+ console.log(data);
+}
+
+
+
+
+var id ='1ez6VxLZlvTx-PdKS9xyYKciArkR6DQYeyWX4wmBPn1Q';
+
+
+var head = document.getElementsByTagName('head')[0];
+
+    
+
+
+
+  
+var  newScriptTag = document.createElement('script');
+            newScriptTag.src = "https://spreadsheets.google.com/feeds/cells/"+id+"/1/public/values?alt=json-in-script&callback=meta&range=A2";
+                head.appendChild(newScriptTag);
+                    scriptTag = newScriptTag; 
+
+
+function meta(data){
+    window.meta=d3.timeParse("Log File Date %d/%m/%Y %H:%M:%S")(data.feed.entry[0].gs$cell.$t)
+    }
+
+
+start(8000); 
+
+function start(data) {
+console.log(data);
+    head.removeChild(scriptTag);
+  
+scriptTag = document.createElement('script');
+scriptTag.src = "https://spreadsheets.google.com/feeds/cells/"+id+"/1/public/values?alt=json-in-script&callback=sheetLoaded&range=B5:B"+data
+///if fails
+scriptTag.addEventListener('error', function(){console.log('trying lower max'); start(parseInt(data*0.90))}, true);
+//onload
+scriptTag.addEventListener('ready',fade)
+
+head.appendChild(scriptTag);
+
+
+//autoupdate();
+}
+
+
+function autoupdate(){
+  new_JSONP_call()
+
+var refreshId = setInterval(function() {
+    
+  
+  if (!window.checked ) {
+    clearInterval(refreshId);
+  }
+  console.log('updated');
+  new_JSONP_call()
+}, 10000);
+
+}
+
+
+
+
+function new_JSONP_call() {
+    head.removeChild(scriptTag);
+    newScriptTag = document.createElement('script');
+    newScriptTag.src = "https://spreadsheets.google.com/feeds/cells/"+id+"/1/public/values?alt=json-in-script&callback=sheetLoaded&range=B"+window.counter+":B"+(window.counter+100);
+    head.appendChild(newScriptTag);
+    scriptTag = newScriptTag;    
+};
+
+
+
+function fade(){   
+console.log('fading in')
+
+ d3.transition()
+      .duration(7000)
+      .tween('width', function() {
+          var i = d3.interpolate(0,1);
+          var j = d3.interpolate(1,0);
+           return function(t) {
+              d3.selectAll('svg').style('opacity',i(t));
+              d3.select('#loader').style('opacity',(t));
+              }
+        })}
+
+
+
+
+
+
+
+</script></body>
+
+    <p class='link' style='position:absolute;float:right;margin-right: 5%;pointer-events:auto' onclick="console.log('manual update');new_JSONP_call()">|manual update|</button>    
+
