@@ -36,7 +36,7 @@ for i in files:
 
 
 
-def pdf(files, columns = 2,ext='pdf'):
+def pdf(files, columns = 3,ext='pdf', folder = 'svgfiles'):
 
     split = np.split(np.array(files),[columns,])
 
@@ -47,7 +47,7 @@ def pdf(files, columns = 2,ext='pdf'):
     for i in split:
         if len(i)>1:
             for j in i:
-                string += r'''\includegraphics[width=%.2f\textwidth]{%s.ext} & '''%(width,j.replace(' ',''))
+                string += r'''\includegraphics[width=%.2f\textwidth]{%s} & '''%(width,j.replace(' ','')+'.'+ext)
             string = string[:-1] + ' \cr '
 
             for k in i:
@@ -56,7 +56,7 @@ def pdf(files, columns = 2,ext='pdf'):
 
             string = string[:-1] + '\\\\[6pt] \n'
         else:
-            string += r'''\multicolumn{%d}{c}{\includegraphics[width=%.2f\textwidth]{%s.ext} } \cr    \multicolumn{%d}{c}{(%s) %s}'''%(columns,width,i[0].replace(' ',''),columns,ascii_lowercase[counter],i[0].replace(' ',''))
+            string += r'''\multicolumn{%d}{c}{\includegraphics[width=%.2f\textwidth]{%s} } \cr    \multicolumn{%d}{c}{(%s) %s}'''%(columns,width,i[0].replace(' ','')+'.'+ext,columns,ascii_lowercase[counter],i[0].replace(' ',''))
             counter +=1
 
 
@@ -87,9 +87,11 @@ def pdf(files, columns = 2,ext='pdf'):
     ''' % ('c'*columns,string)
 
 
-    with open('svgfiles/result.tex','w') as f:
+    with open(folder+'/result.tex','w') as f:
         f.write(latexdata)
 
-    os.system('cd svgfiles/ && pdflatex result.tex && cp result.pdf ../')
+    os.system('cd '+folder+'/ && pdflatex result.tex && cp result.pdf ../')
 
     print 'written'
+
+pdf(files)
