@@ -47,6 +47,7 @@ ___
 !$:h -> /usr/bin (head)  ;    
 !$:t -> log.txt (tail)
 
+-push to ftp server`find ./ -exec curl -T {} ftp://ftp.<ftpserver link>/<filepath>/ --user <username>:<passwd> \;`
 
 
 #### .bashrc .bash_profile .profile
