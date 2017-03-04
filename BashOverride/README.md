@@ -96,7 +96,7 @@ ___
 - compile `python -O -m py_compile <myprog.py>`
 - run `python <myprog.pyo>` (or pyc for non optimised)
 - cython `cython --embed -o <cfile>.c <mypyfile>.py`
-- cython compile `gcc -Ofast -I /Users/dna/anaconda/include/python2.7 -o hello hello.c -lpython -lpthread -lm -lutil -ldl`
+- cython compile `gcc -Ofast -I /Users/dna/anaconda/include/python2.7 -o hello hello.c -lpython #-lpthread -lm -lutil -ldl`
 
 #### Q-Sub 
 ___
