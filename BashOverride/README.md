@@ -90,6 +90,12 @@ ___
 -delete all files NOT ending with .json `find . -type f ! -name "*.json" -delete`
 - list files in repositories recursively `ls -r *`
 
+#### Python
+___
+
+- compile `python -O -m py_compile <myprog.py>`
+- run `python <myprog.pyo>` (or pyc for non optimised)
+
 #### Q-Sub 
 ___
 
