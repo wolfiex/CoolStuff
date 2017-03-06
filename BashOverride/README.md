@@ -98,6 +98,9 @@ ___
 - cython `cython --embed -o <cfile>.c <mypyfile>.py`
 - cython compile `gcc -Ofast -I /Users/dna/anaconda/include/python2.7 -o hello hello.c -lpython #-lpthread -lm -lutil -ldl`
 - instal module for pypy: `pypy -m pip install sympy`
+- server with timeout: `timeout 3600 python -m SimpleHTTPServer 80`
+
+
 #### Q-Sub 
 ___
 
