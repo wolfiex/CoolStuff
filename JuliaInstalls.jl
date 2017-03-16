@@ -29,6 +29,6 @@ install:
 curl https://raw.githubusercontent.com/creationix/nvm/v0.19.0/install.sh | bash
 add . ~/.nvm/nvm.sh to bash profile 
 http://flnkr.com/2014/11/install-nvm-and-node-js-on-os-x/
-
-
+update npm: 
+npm i -g npm
 
