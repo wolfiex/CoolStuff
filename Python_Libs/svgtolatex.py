@@ -15,6 +15,10 @@ import glob,sys,os
 import numpy as np
 from string import ascii_lowercase
 
+ext = 'eps'
+#ext {eps,pdf}
+
+
 
 if len(sys.argv) > 1:
     files = sys.argv[1:]
@@ -26,8 +30,12 @@ os.system('mkdir svgfiles; rm ./svgfiles/*')
 files.sort()
 files = [k.replace('.svg','') for k in files]
 
+cwd = os.getcwd()
+
 for i in files:
-    cmd = "rsvg-convert -f pdf -o svgfiles/"+ i.replace(' ','') +".pdf " + i.replace(' ','\ ')+'.svg'
+    if ext=='pdf': cmd = "rsvg-convert -f pdf -o svgfiles/"+ i.replace(' ','') +".pdf " + i.replace(' ','\ ')+'.svg'
+    #if ext=='pdf': cmd = "inkscape -z  --export-pdf="+ cwd+"/svgfiles/"+ i.replace(' ','\ ')+".pdf " + cwd+"/"+ i.replace(' ','\ ')+'.svg'
+    elif ext=='eps': cmd = "inkscape -z --export-area-drawing " + cwd+"/"+ i.replace(' ','\ ')+".svg -E "+   cwd+"/svgfiles/"+ i.replace(' ','\ ')+".eps --export-ps-level=3"#--export-ignore-filters
     print i
     os.system(cmd)
 
@@ -36,28 +44,31 @@ for i in files:
 
 
 
-def pdf(files, columns = 3,ext='pdf', folder = 'svgfiles'):
+def pdf(files, columns = 3,ext=ext, folder = 'svgfiles'):
 
-    split = np.split(np.array(files),[columns,])
+    split =  np.split(np.array(files),xrange(0,len(files),columns))
 
     width = 1.0/columns
 
     string = ''
     counter = 0
     for i in split:
-        if len(i)>1:
-            for j in i:
-                string += r'''\includegraphics[width=%.2f\textwidth]{%s} & '''%(width,j.replace(' ','')+'.'+ext)
-            string = string[:-1] + ' \cr '
+        print i , len(i)
+        if len(i)>0:
+            if (len(i)==columns):
+                for j in i:
+                    string += r'''\includegraphics[width=%.2f\textwidth]{%s} &'''%(width,j.replace(' ','')+'.'+ext)
+                string = string[:-1] + '\\\\[6pt] \n'
 
-            for k in i:
-                string += '(' + ascii_lowercase[counter] + ') ' + k.replace(' ','') + '  & '
+                for k in i:
+                    string += '(' + ascii_lowercase[counter] + ') ' + k.replace(' ','') + '  &'
+                    counter +=1
+
+                string = string[:-1] + '\\\\[6pt] \n'
+            else:
+                print i ,counter
+                string += r'''\multicolumn{%d}{c}{\includegraphics[width=%.2f\textwidth]{%s} } \\\\[6pt] \n    \multicolumn{%d}{c}{(%s) %s}'''%(columns-1,width,i[0].replace(' ','')+'.'+ext,columns,ascii_lowercase[counter],i[0].replace(' ',''))+ '\\\\[6pt] \n'
                 counter +=1
-
-            string = string[:-1] + '\\\\[6pt] \n'
-        else:
-            string += r'''\multicolumn{%d}{c}{\includegraphics[width=%.2f\textwidth]{%s} } \cr    \multicolumn{%d}{c}{(%s) %s}'''%(columns,width,i[0].replace(' ','')+'.'+ext,columns,ascii_lowercase[counter],i[0].replace(' ',''))
-            counter +=1
 
 
     latexdata =r'''
@@ -85,6 +96,8 @@ def pdf(files, columns = 3,ext='pdf', folder = 'svgfiles'):
     \end{document}
 
     ''' % ('c'*columns,string)
+
+
 
 
     with open(folder+'/result.tex','w') as f:
