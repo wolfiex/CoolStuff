@@ -1,0 +1,7 @@
+#!/bin/bash
+for arg in "$@" 
+do 
+echo $arg;
+inkscape -z --export-area-drawing $(pwd)/$arg -E $(pwd)/${arg/.svg/.eps} --export-ps-level=3;
+done
+
