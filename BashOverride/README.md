@@ -12,6 +12,8 @@ ___
 - typographical `alias mkae=make`
 - symbolic (soft) link `ln -s file1 file2`
 - hard link `ln file1 file2`
+- ls or grep files mathcing one set but not another `comm -23 <(ls *.svg) <(ls dontmatchprefix*.svg)`
+
 
 
 #### Command Processing
