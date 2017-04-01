@@ -10,6 +10,8 @@ ___
 - list only subdirectories `ls -d */` 
 - make nested directories `mkdir -p tmp/a/b/c
 - typographical `alias mkae=make`
+- symbolic (soft) link `ln -s file1 file2`
+- hard link `ln file1 file2`
 
 
 #### Command Processing
