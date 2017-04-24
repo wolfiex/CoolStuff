@@ -1,3 +1,4 @@
 #Overide anacondas tensorflow 
-`pip install tensorflow --ignore-installed --prefix='~/Library/python/'`
+
+`pip install --upgrade tensorflow --ignore-installed --prefix='~/Library/python/'`
 
