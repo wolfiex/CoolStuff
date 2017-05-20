@@ -151,5 +151,6 @@ For the next section use  `^A + <keystrokes stated> `
 - screen cmd prompt `:`
 
 
-
+#### git 
+- large file `git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch FOLDER/FILENAME" -- --all`
 
