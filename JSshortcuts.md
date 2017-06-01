@@ -11,7 +11,7 @@ http://learnjsdata.com/group_data.html
     map.get(261)
 
 
-  ### dave electron
+  ### App packaging
     # for use in npm scripts
     npm install electron-packager --save-dev
 
