@@ -154,3 +154,5 @@ For the next section use  `^A + <keystrokes stated> `
 #### git 
 - large file `git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch FOLDER/FILENAME" -- --all`
 
+#### Makefile
+- `-rm -f *.o` - ignore exit status / errors and run
