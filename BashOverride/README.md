@@ -14,7 +14,9 @@ ___
 - hard link `ln file1 file2`
 - ls or grep files mathcing one set but not another `comm -23 <(ls *.svg) <(ls dontmatchprefix*.svg)`
 
-
+#### Finding packages required by program
+1. `readelf -d /bin/<myprogramname> | grep 'NEEDED'`
+2. `locate libselinux.so.1`
 
 #### Command Processing
 ___
