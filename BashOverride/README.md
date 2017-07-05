@@ -100,7 +100,7 @@ ___
 ___
 
 - compile `python -O -m py_compile <myprog.py>`
-- run `python <myprog.pyo>` (or pyc for non optimised)
+- run `python <myprog.pyo>` (or pyc for non optimised) - if you remove .py file you need to rename to .pyc
 - cython `cython --embed -o <cfile>.c <mypyfile>.py`
 - cython compile `gcc -Ofast -I /Users/dna/anaconda/include/python2.7 -o hello hello.c -lpython #-lpthread -lm -lutil -ldl`
 - instal module for pypy: `pypy -m pip install sympy`
