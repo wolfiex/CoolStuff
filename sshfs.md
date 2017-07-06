@@ -29,7 +29,7 @@ Enter file in which to save the key (/Users/myuser/.ssh/id_rsa): /Users/myuser/.
       -o allow_other
   
   
-  ## AutoSTART
+  ## AutoStart
   
 Add your example begin script in an executable inside your mount directory. This means if you open it and the progam is not mounted, you can then mount it. 
 
