@@ -17,7 +17,7 @@ Enter file in which to save the key (/Users/myuser/.ssh/id_rsa): /Users/myuser/.
  
     mkdir ~/Desktop/mnt
     
-    sshfs server.example.com:/var/www ~/Desktop/mnt -o defer_permissions -o volname=Server
+    sshfs server.example.com:/work/home/dirname ~/Desktop/mnt -o defer_permissions -o volname=Server
 
  To unmount:
  
@@ -29,5 +29,22 @@ Enter file in which to save the key (/Users/myuser/.ssh/id_rsa): /Users/myuser/.
       -o allow_other
   
   
+  ## Autostart
   
-  
+Add your example begin script in an executable inside your mount directory. This means if you open it and the progam is not mounted, you can then mount it. 
+
+         cd ~/Desktop/mnt
+         
+         nano mountServer
+         
+   Incldue your run script and a crunchbang 
+   
+         #!/bin/bash
+         sshfs server.example.com:/work/home/dirname ~/Desktop/mnt -o defer_permissions -o volname=Server
+         
+         
+   and make executable
+   
+        chmod a+x mountServer
+         
+
