@@ -29,7 +29,7 @@ Enter file in which to save the key (/Users/myuser/.ssh/id_rsa): /Users/myuser/.
       -o allow_other
   
   
-  ## Autostart
+  ## AutoSTART
   
 Add your example begin script in an executable inside your mount directory. This means if you open it and the progam is not mounted, you can then mount it. 
 
@@ -37,7 +37,7 @@ Add your example begin script in an executable inside your mount directory. This
          
          nano mountServer
          
-   Incldue your run script and a crunchbang 
+   Include your run script and a crunchbang 
    
          #!/bin/bash
          sshfs server.example.com:/work/home/dirname ~/Desktop/mnt -o defer_permissions -o volname=Server
