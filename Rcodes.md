@@ -1,4 +1,4 @@
-
+```r
 packages <- function(pkg){
     new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
     if (length(new.pkg))
@@ -10,4 +10,4 @@ packages(c("foo", "bar", "baz"))
 }
 
 source('myfile.R')
-
+```
