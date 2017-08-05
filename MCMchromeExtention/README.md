@@ -1,7 +1,7 @@
 ## MCM species selector applet 
 A simple chrome extention that allows you to paste a comma sepeated list of species into the website.
 
-<img src='Screen Shot 2017-08-05 at 22.46.16.png' />
+<img src='website.png' />
 
 ### Installing
 1.Go to `chrome://extentions` in the url box
