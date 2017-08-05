@@ -6,9 +6,6 @@ A simple chrome extention that allows you to paste a comma sepeated list of spec
 ### Installing
 1.Go to `chrome://extentions` in the url box
 
-2.Drag and drop the .nex file into the open window. 
+2.Drag and drop the following file <a href='https://github.com/wolfiex/CoolStuff/raw/master/MCMchromeExtention/MCMextention.nex'>download Extention here> file into the open window. 
 
-3. Click install 
-
-4. Enjoy!
-
+3. Install and Enjoy 
