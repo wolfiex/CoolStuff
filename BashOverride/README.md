@@ -158,3 +158,6 @@ For the next section use  `^A + <keystrokes stated> `
 
 #### Makefile
 - `-rm -f *.o` - ignore exit status / errors and run
+
+- find some lib `find / -type f -name libcuda.so.* -exec dirname {} \; 2>/dev/null`
+- symbolic link `ln -s`
