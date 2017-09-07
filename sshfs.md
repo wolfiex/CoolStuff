@@ -7,7 +7,11 @@ Enter file in which to save the key (/Users/myuser/.ssh/id_rsa): /Users/myuser/.
     
      brew install ssh-copy-id
     
-     ssh-copy-id -i ~/.ssh/myserver_id_rsa.pub myuser@myserver
+     ssh-copy-id -i ~/.ssh/id_rsa.pub myuser@myserver
+    
+ Alternatively just use the oldschool method 
+ 
+     cat ~/.ssh/id_rsa.pub | ssh user@hostname 'cat >> .ssh/authorized_keys'
     
     
  ## Install FUSE and SSHFS
