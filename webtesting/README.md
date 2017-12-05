@@ -3,7 +3,16 @@ See Electron and npm for help
 
 
 `wget https://raw.githubusercontent.com/wolfiex/CoolStuff/master/webtesting/main.js && `
-` wget https://raw.githubusercontent.com/wolfiex/CoolStuff/master/webtesting/package.json`
+` wget https://raw.githubusercontent.com/wolfiex/CoolStuff/master/webtesting/package.json&&npm install`
+
+
+
+
+Add svg fonts 
+`<defs>  <style type="text/css">@import url(https://fonts.googleapis.com/css?family=Lato);tspan,text{
+  font: 1.0em Lato, sans-serif;}</style></defs>`
+
+
 
 
 Aleternatively you can also spawn an electron window through Julia 
