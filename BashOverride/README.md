@@ -20,7 +20,7 @@ ___
 
 #### Command Processing
 ___
-
+- ls files by size `du -ah * | grep -v "/$" | sort -rh `
 - cut all left `^U`
 - cut word left `^W`
 - paste buffer `^Y`
