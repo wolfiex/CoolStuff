@@ -1,0 +1,2 @@
+convert file.png file.pnm        # PNG to PNM
+potrace file.pnm -s -o file.svg  # PNM to SVG
