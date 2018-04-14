@@ -1,0 +1,3 @@
+https://www.netflix.com/viewingactivity
+
+[...document.querySelectorAll('.deleteBtn')].map(key=>{key.click()});[...document.querySelectorAll('.removeSeries')].map(key=>{key.click()})
