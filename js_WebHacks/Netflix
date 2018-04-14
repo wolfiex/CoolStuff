@@ -4,5 +4,5 @@
 https://www.netflix.com/viewingactivity
 
 setInterval(function(){
-[...document.querySelectorAll('.deleteBtn')].map(key=>{key.click()});[...document.querySelectorAll('.removeSeries')].map(key=>{key.click()})
+[...document.querySelectorAll('.deleteBtn')].map(key=>{key.click()});[...document.querySelectorAll('.removeSeries')].map(key=>{key.click()});window.scrollTo(0,document.body.scrollHeight);
 }, 3000);
