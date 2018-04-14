@@ -1,3 +1,8 @@
+// remove all viewing activity.. let play until it stops updating
+
+
 https://www.netflix.com/viewingactivity
 
+setInterval(function(){
 [...document.querySelectorAll('.deleteBtn')].map(key=>{key.click()});[...document.querySelectorAll('.removeSeries')].map(key=>{key.click()})
+}, 3000);
