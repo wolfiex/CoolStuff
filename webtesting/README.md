@@ -6,7 +6,7 @@ See Electron and npm for help
 ` wget https://raw.githubusercontent.com/wolfiex/CoolStuff/master/webtesting/package.json&&npm install`
 
 
-
+document.lastModified
 
 Add svg fonts 
 `<defs>  <style type="text/css">@import url(https://fonts.googleapis.com/css?family=Lato);tspan,text{
