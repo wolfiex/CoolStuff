@@ -20,6 +20,8 @@ for i in q:
                 d.append(i.split(' ')[-1])
         elif ('queue ' in i )& ('GEOS' not in i)& ('pbs' not in i):
                 d.append(i.split(' ')[-1])
+        elif ('stime' in i):
+                d.append(i.split(' ')[-4:-1])
         elif '' == i:
                 if len(d)>3:
                         data.append(d)
@@ -27,7 +29,7 @@ for i in q:
 
 
 df = pd.DataFrame(data)
-columns = [ 'job','user','stat','queue','cores']
+columns = [ 'job','user','stat','queue','cores','start']
 df.columns = columns
 print "\033[34m" + 'Qstat' + "\033[0m"
 
@@ -39,8 +41,7 @@ print  ''
 
 nproc = float(os.popen('nproc --all').read())
 
-print
-str(df.groupby(by=['queue']).size()).split('dtype')[0].replace('queue',"\033[34m" + 'Queue Job Count' + "\033[0m"
+print str(df.groupby(by=['queue']).size()).split('dtype')[0].replace('queue',"\033[34m" + 'Queue Job Count' + "\033[0m")
 
 print "\033[34m" , 'Usage Stats', "\033[0m"
 print "\033[0m" , df[df.stat=='R'].cores.astype(int).sum() , 'out of',int(nproc) , "\033[0m"
@@ -49,7 +50,7 @@ print "\033[0m" , df[df.stat=='Q'].cores.astype(int).sum() , 'Status = waiting' 
 
 print ''
 print "\033[34m" , 'Potentially Free' + "\033[0m"
-print "\033[0m" , int(nproc - df[df.stat=='R'].cores.astype(int).sum())-16, 'cores maybe?', "\033[0m"
+print "\033[0m" , int(nproc - df[df.stat=='R'].cores.astype(int).sum())-8, 'cores maybe?', "\033[0m"
 
 
 
