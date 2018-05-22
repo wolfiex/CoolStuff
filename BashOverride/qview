@@ -1,0 +1,49 @@
+
+import os
+q = os.popen('/opt/pbs/bin/qstat -f').read().split('\n')
+
+data = []
+d=[]
+for i in q:
+
+        if 'Job Id: ' in i:
+                d.append(i.split(' ')[-1].split('.')[0])
+        elif 'Job_Owner ' in i:
+                d.append(i.split(' ')[-1].split('@')[0])
+        elif 'Resource_List.ncpus =' in i:
+                d.append(i.split(' ')[-1])
+        #elif 'resources_used.ncpus =' in i:
+        #       d.append(i.split(' ')[-1])
+        elif 'job_state ' in i:
+                d.append(i.split(' ')[-1])
+        elif ('queue ' in i )& ('GEOS' not in i)& ('pbs' not in i):
+                d.append(i.split(' ')[-1])
+        elif '' == i:
+                if len(d)>3:
+                        data.append(d)
+                d=[]
+
+                
+df = pd.DataFrame(data)
+columns = [ 'job','user','stat','queue','cores']
+df.columns = columns
+print "\033[34m" + 'Qstat' + "\033[0m"
+
+print df
+
+print  ''
+
+#lscpu | grep -E '^Thread|^Core|^Socket|^CPU\('
+
+nproc = float(os.popen('nproc --all').read())
+
+print str(df.groupby(by=['queue']).size()).split('dtype')[0].replace('queue',"\033[34m" + 'Queue Job Count' + "\033[0m")
+
+print "\033[34m" , 'Usage Stats', "\033[0m"
+print "\033[0m" , df[df.stat=='R'].cores.astype(int).sum() , 'out of',int(nproc) , "\033[0m"
+print "\033[0m" , int(df.cores.astype(int).sum()/nproc *100), 'Percent in scheduler', "\033[0m"
+print "\033[0m" , df[df.stat=='Q'].cores.astype(int).sum() , 'Status = waiting' + "\033[0m"
+
+print ''
+print "\033[34m" , 'Potentially Free' + "\033[0m"
+print "\033[0m" , int(nproc - df[df.stat=='R'].cores.astype(int).sum())-16, 'cores maybe?', "\033[0m"
