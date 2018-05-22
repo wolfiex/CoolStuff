@@ -4,6 +4,14 @@ import pandas as pd
 import os
 q = os.popen('/opt/pbs/bin/qstat -f').read().split('\n')
 
+def seconds(x):
+    d = pd.np.array(x.split(':')).astype(float)
+    d[0]*=60*60
+    d[1]*=60
+    return pd.to_datetime(d.sum()*10**9)
+
+
+
 data = []
 d=[]
 for i in q:
@@ -20,8 +28,10 @@ for i in q:
                 d.append(i.split(' ')[-1])
         elif ('queue ' in i )& ('GEOS' not in i)& ('pbs' not in i):
                 d.append(i.split(' ')[-1])
-        elif ('stime' in i):
-                d.append(i.split(' ')[-4:-1])
+        elif ('resources_used.walltime' in i):
+                d.append(seconds(i.split(' ')[-1]))
+        elif ('Resource_List.walltime' in i):
+                d.append(seconds(i.split(' ')[-1]))      
         elif '' == i:
                 if len(d)>3:
                         data.append(d)
@@ -29,8 +39,15 @@ for i in q:
 
 
 df = pd.DataFrame(data)
-columns = [ 'job','user','stat','queue','cores','start']
+columns = [ 'job','user','wall','stat','queue','cores','finish']
+
 df.columns = columns
+
+
+df['time_left']=df.finish-df.wall
+df = df [[ 'job','user','stat','queue','cores','time_left']]
+df.sort_values('time_left',inplace=True)
+
 print "\033[34m" + 'Qstat' + "\033[0m"
 
 print df
