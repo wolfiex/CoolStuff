@@ -20,4 +20,5 @@ run()
 //// curl script 
 console.log(pages.join(' ; '))
 //// turn into pdf
-convert *.jpg pictures.pdf
+convert *.jpg pictures.pdf && rm *.jpg
+
