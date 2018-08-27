@@ -22,3 +22,4 @@ console.log(pages.join(' ; '))
 //// turn into pdf
 convert *.jpg pictures.pdf && rm *.jpg
 
+// If using a pdf, find the web link to an embedded version, then try to print, then select save as pdf on your computer!
