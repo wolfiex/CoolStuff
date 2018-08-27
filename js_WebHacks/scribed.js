@@ -15,4 +15,9 @@ run()
 run()
 
 
+
+//https://www.scribd.com/doc/133057762/RYA-Navigation-Handbook
+//// curl script 
 console.log(pages.join(' ; '))
+//// turn into pdf
+convert *.jpg pictures.pdf
