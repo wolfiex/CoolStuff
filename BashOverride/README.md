@@ -152,6 +152,8 @@ For the next section use  `^A + <keystrokes stated> `
 - show key bindings/cmd names `?`
 - screen cmd prompt `:`
 
+#### osx notification when done
+- `osascript -e 'display notification "I am done" with title "fini"'`
 
 #### git 
 - large file `git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch FOLDER/FILENAME" -- --all`
