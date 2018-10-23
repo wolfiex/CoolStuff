@@ -1,5 +1,7 @@
 
-brew install imagemaick
+brew install imagemagick;
+
+
 brew install ghostscript
 
 
