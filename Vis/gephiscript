@@ -1,15 +1,13 @@
 import time
-
-i=0
-
-runLayout(RandomLayout)
-stopLayout()
-runLayout(ForceAtlas2)
-time.sleep(60)
-stopLayout()
-
-
-
 setVisible(g.filter(degree>0))
-exportGraph('/Users/wolfiex/Desktop/gephioutput/svg/%04d.svg')
-exportGraph('/Users/wolfiex/Desktop/gephioutput/png/%04d.png')
+
+def start(n,y):
+  for i in xrange(n,y):
+    print i
+    runLayout(RandomLayout)
+    stopLayout()
+    runLayout(ForceAtlas2)
+    time.sleep(60)
+    stopLayout()
+    exportGraph('/Users/wolfiex/Desktop/gephioutput/svg/%04d.svg'%i)
+    exportGraph('/Users/wolfiex/Desktop/gephioutput/png/%04d.png'%i)
