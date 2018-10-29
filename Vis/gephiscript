@@ -1,6 +1,27 @@
 import time
 setVisible(g.filter(degree>0))
 
+def center(node):
+  shiftx = node.x
+  shifty = node.y
+  for n in g.nodes:
+    n.x -= shiftx
+    n.y -= shifty
+
+def rotate(angle):
+  import math
+  for n in g.nodes:
+    xp = n.x*math.cos(angle) - n.y*math.sin(angle)
+    yp = n.x*math.sin(angle) + n.y*math.cos(angle)
+    n.x =xp
+    n.y =yp
+    
+def rotatenode(toangle,node):
+    deg = math.atan2(node.y,node.x)
+    angle = toangle*math.pi/180.
+    rotate(angle-deg)
+
+
 def start(n,y):
   for i in xrange(n,y):
     print i
@@ -9,6 +30,8 @@ def start(n,y):
     runLayout(ForceAtlas2)
     time.sleep(70)
     stopLayout()
+    center(vCO)
+    rotatenode(45,vCH3CHO)
     exportGraph('/Users/wolfiex/Desktop/gephioutput/svg/%04d.svg'%i)
     exportGraph('/Users/wolfiex/Desktop/gephioutput/png/%04d.png'%i)
     time.sleep(60)
