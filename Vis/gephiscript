@@ -17,6 +17,7 @@ def rotate(angle):
     n.y =yp
     
 def rotatenode(toangle,node):
+    import math
     deg = math.atan2(node.y,node.x)
     angle = toangle*math.pi/180.
     rotate(angle-deg)
