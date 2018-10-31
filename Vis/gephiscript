@@ -29,7 +29,7 @@ def start(n,y):
     runLayout(RandomLayout)
     stopLayout()
     runLayout(ForceAtlas2)
-    time.sleep(70)
+    time.sleep(30)
     stopLayout()
     center(vCO)
     rotatenode(45,vCH3CHO)
