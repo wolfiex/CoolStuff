@@ -1,0 +1,10 @@
+
+convert *.png  -background white -append alltogether.png
+
+
+montage *.png -geometry +0+0 -tile 4x1  montage.png
+
+montage ./png/0*.png -geometry 400x400+0+0   all.png
+
+
+in=$(printf 'png/%04d.png ' {0..900} ) && montage ${in} -geometry 400x400+0+0 all.png
