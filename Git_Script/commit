@@ -1,0 +1,8 @@
+#!/usr/bin/python
+
+import os,datetime
+
+now = str(datetime.datetime.now())
+
+
+os.system('git add -A ; git commit -m "%s" ; git push origin master'%now)
