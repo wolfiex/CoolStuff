@@ -1,5 +1,5 @@
 #!/bin/bash
-for f in $(grep -Rl '^>>>>>>> ' --include="*.php" --include="*.css" --include="*.js" --include="*.html" --include="*.svg" --include="*.txt" .)
+for f in $(grep -Rl '^>>>>>>> ' --include="*" --include="*.css" --include="*.js" --include="*.html" --include="*.svg" --include="*.txt" .)
 do
 sed -i -e '/^=======/,/^>>>>>>> /d' -e '/^<<<<<<< /d' $f
 sed -i -e '/^>>>>>>> /d' $f
