@@ -3,6 +3,7 @@ See Electron and npm for help
 
 
 `wget https://raw.githubusercontent.com/wolfiex/CoolStuff/master/webtesting/main.js && `
+`wget https://raw.githubusercontent.com/wolfiex/CoolStuff/master/webtesting/index.html &&`
 ` wget https://raw.githubusercontent.com/wolfiex/CoolStuff/master/webtesting/package.json&&npm install`
 
 
