@@ -1,6 +1,15 @@
 Bash Cheat Sheet - Dan Ellis
 ------
 
+#### Must haves 
+___
+```
+rmm(){ mv $1 /home/$USER/.local/share/Trash/files; }
+alias rm="rmm"
+alias rmf='/usr/bin/rm -rf'
+```
+
+
 #### Redirection 
 ___
 
