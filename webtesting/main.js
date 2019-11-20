@@ -20,9 +20,12 @@ app.on('window-all-closed', function() {
 app.on('ready', function() {
     const myLocation = 'file://' + __dirname
     mainWindow = new BrowserWindow({width:800, height: 800,resizable: true,title:'Dan Ellis 2016' ,
+                                        webPreferences: {
+  nodeIntegration: true
+},
     show:true});
     mainWindow.openDevTools();    // and load the index.html of the app.
-    mainWindow.loadURL( myLocation + '/'+ args[0]||'index.html'+'#'+args[1]);
+    mainWindow.loadURL( myLocation + '/'+ (args[0]||'index.html')+'#'+args[1]);
 
 
     mainWindow.on('closed', function() { mainWindow = null;  app.quit();});
