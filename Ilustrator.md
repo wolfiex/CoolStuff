@@ -5,4 +5,4 @@ CMD + 7
 
 ----------
 
-Toolbar -> select attribute opacity
+Toolbar -> select, same , apperance
