@@ -8,6 +8,32 @@ See Electron and npm for help
 `wget https://raw.githubusercontent.com/wolfiex/CoolStuff/master/webtesting/package.json&&npm install`
 
 
+
+
+
+
+
+
+## node incomp vers
+```
+
+npm i -D electron-rebuild
+
+rm -rf node_modules *.lock
+
+npm -i 
+
+./node_modules/.bin/electron-rebuild
+
+
+`
+
+
+
+
+
+
+
 document.lastModified
 
 Add svg fonts 
