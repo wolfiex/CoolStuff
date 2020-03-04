@@ -17,11 +17,11 @@ See Electron and npm for help
 ## node incomp vers
 ```
 
-npm i -D electron-rebuild
-
 rm -rf node_modules *.lock
 
-npm -i 
+npm i -D electron-rebuild
+
+npm i 
 
 ./node_modules/.bin/electron-rebuild
 
