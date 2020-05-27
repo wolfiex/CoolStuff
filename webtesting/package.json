@@ -13,7 +13,7 @@
   "repository": {
   },
   "scripts": {
-    "start": "electron main.js --no-sandbox",
+    "start": "electron main.js",// --no-sandbox",
     "dev": "electron . --enable-logging",
     "clean": "rm -rf ./dist",
     "clean:osx": "rm -rf ./dist/osx",
