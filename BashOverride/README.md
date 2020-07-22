@@ -10,7 +10,8 @@ alias rmf='/usr/bin/rm -rf'
 ```
 
 #### unzip many files into folders with the same name 
-```for filename in *.zip; do
+```bash
+for filename in *.zip; do
  unzip $filename -d $(basename $filename .zip)
 done
 ```
