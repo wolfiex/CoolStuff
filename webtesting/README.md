@@ -1,6 +1,12 @@
 # A couple of files needed to run the Electron local-webserver on index.html (changable)
 See Electron and npm for help
 
+```
+curl https://raw.githubusercontent.com/wolfiex/CoolStuff/master/webtesting/main.js > main.js;
+curl https://raw.githubusercontent.com/wolfiex/CoolStuff/master/webtesting/package.json > package.json;
+```
+
+
 
 `wget https://raw.githubusercontent.com/wolfiex/CoolStuff/master/webtesting/main.js --no-check-certificate && `
 `wget https://raw.githubusercontent.com/wolfiex/CoolStuff/master/webtesting/index.html --no-check-certificate &&`
