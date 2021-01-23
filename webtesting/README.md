@@ -7,6 +7,8 @@ curl https://raw.githubusercontent.com/wolfiex/CoolStuff/master/webtesting/packa
 ```
 
 
+`npm install webpack webpack-cli --save-dev` and `./node_modules/webpack/bin/webpack.js ./index.js --output-filename=bundle.js --mode=production`
+
 
 `wget https://raw.githubusercontent.com/wolfiex/CoolStuff/master/webtesting/main.js --no-check-certificate && `
 `wget https://raw.githubusercontent.com/wolfiex/CoolStuff/master/webtesting/index.html --no-check-certificate &&`
